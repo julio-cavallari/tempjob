@@ -17,7 +17,7 @@ export function* authenticateUser(api, action) {
 
 export function* updateUser(api, action) {
   try {
-    const response = yield call(api, 'post', `update/user/${action?.data?.id}`, action.data);
+    const response = yield call(api, 'put', `user/${action?.data?.id}`, action.data);
 
     if (response.data.user) {
       yield put(UserActions.userUpdate(response.data.user));
@@ -29,7 +29,7 @@ export function* updateUser(api, action) {
 
 export function* updateUserAvatar(api, action) {
   try {
-    const response = yield call(api, 'post', `user/avatar`, {avatar: action.avatar});
+    const response = yield call(api, 'put', `user/avatar`, {avatar: action.avatar});
 
     if (response.data.user) {
       yield put(UserActions.userUpdateAvatar(response.data.user));

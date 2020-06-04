@@ -55,7 +55,7 @@ export function* getDocuments(api) {
 
 export function* cancelApplication(api, action) {
   try {
-    const response = yield call(api, 'post', `delete/job_application/${action.jobApplicationId}`);
+    const response = yield call(api, 'delete', `job_application/${action.jobApplicationId}`);
 
     yield put(JobApplicationActions.jobApplicationSetMessage(response.data.message));
     yield put(JobApplicationActions.getJobApplications(response.data.jobApplications));
