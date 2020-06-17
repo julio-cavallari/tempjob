@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import {Creators as JobHistoryActions} from '../ducks/jobHistory';
 
 export function* getJobHistories(api) {

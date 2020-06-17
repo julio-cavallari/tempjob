@@ -1,13 +1,18 @@
-import { call, put } from 'redux-saga/effects';
+import {call, put} from 'redux-saga/effects';
 import {Creators as UserActions} from '../ducks/user';
 
 export function* authenticateUser(api, action) {
   yield put(UserActions.authenticateFetching());
   try {
-    const response = yield call(api, 'post', 'login', {email: action.email, password: action.password});
+    const response = yield call(api, 'post', 'login', {
+      email: action.email,
+      password: action.password,
+    });
 
     if (response.data.user && response.data.token) {
-      yield put(UserActions.authenticate(response.data.user, response.data.token));
+      yield put(
+        UserActions.authenticate(response.data.user, response.data.token),
+      );
     }
   } catch (error) {
     yield put(UserActions.setErrors(error.response?.data?.errors));
@@ -17,7 +22,12 @@ export function* authenticateUser(api, action) {
 
 export function* updateUser(api, action) {
   try {
-    const response = yield call(api, 'put', `user/${action?.data?.id}`, action.data);
+    const response = yield call(
+      api,
+      'put',
+      `user/${action?.data?.id}`,
+      action.data,
+    );
 
     if (response.data.user) {
       yield put(UserActions.userUpdate(response.data.user));
@@ -29,7 +39,9 @@ export function* updateUser(api, action) {
 
 export function* updateUserAvatar(api, action) {
   try {
-    const response = yield call(api, 'put', `user/avatar`, {avatar: action.avatar});
+    const response = yield call(api, 'put', 'user/avatar', {
+      avatar: action.avatar,
+    });
 
     if (response.data.user) {
       yield put(UserActions.userUpdateAvatar(response.data.user));
@@ -47,5 +59,3 @@ export function* logout(api) {
     yield put(UserActions.setErrors(error.response?.data?.errors));
   }
 }
-
-

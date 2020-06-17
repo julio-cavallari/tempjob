@@ -47,7 +47,7 @@ class UserController extends Controller
           $image = $request->input("avatar");
           $image = str_replace('data:image/png;base64,', '', $image);
           $image = str_replace(' ', '+', $image);
-          $upload = \Illuminate\Support\Facades\Storage::put("public/avatar/".$nameFile, base64_decode($image));
+          $upload = \Illuminate\Support\Facades\Storage::disk('public')->put("avatar/".$nameFile, base64_decode($image));
         }
         foreach ($request->input('tags') as $value) {
           Tags::create([
